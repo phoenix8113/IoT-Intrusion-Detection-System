@@ -2,28 +2,29 @@ from __future__ import print_function
 import numpy as np
 np.random.seed(1337)  # for reproducibility
 
-from tensorflow.keras.utils.preprocessing import sequence
-from tensorflow.keras.utils.models import Sequential
-from tensorflow.keras.utils.layers import Dense, Dropout, Activation, Lambda
-from tensorflow.keras.utils.layers import Embedding
-from tensorflow.keras.utils.layers import Convolution1D,MaxPooling1D, Flatten
-from tensorflow.keras.utils.datasets import imdb
-from tensorflow.keras.utils import backend as K
+from keras.preprocessing import sequence
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Activation, Lambda
+from keras.layers import Embedding
+from keras.layers import Convolution1D,MaxPooling1D, Flatten
+from keras.datasets import imdb
+from keras import backend as K
 from sklearn.model_selection import train_test_split
 import pandas as pd
-import np_utils
-from np_utils import to_categorical
+#import np_utils
+from tensorflow.keras.utils import to_categorical
+#from np_utils import to_categorical
 
 from sklearn.preprocessing import Normalizer
-from tensorflow.keras.utils.models import Sequential
-from tensorflow.keras.utils.layers import Convolution1D, Dense, Dropout, Flatten, MaxPooling1D
-from tensorflow.keras.utils.utils import np_utils
+from keras.models import Sequential
+from keras.layers import Convolution1D, Dense, Dropout, Flatten, MaxPooling1D
+#from keras import np_utils
 import numpy as np
 import h5py
-from tensorflow.keras.utils import callbacks
-from tensorflow.keras.utils.layers import LSTM, GRU, SimpleRNN
-from tensorflow.keras.utils.callbacks import CSVLogger
-from tensorflow.keras.utils.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, CSVLogger
+from keras import callbacks
+from keras.layers import LSTM, GRU, SimpleRNN
+from keras.callbacks import CSVLogger
+from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from sklearn.metrics import (precision_score, recall_score,f1_score, accuracy_score,mean_squared_error,mean_absolute_error)
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
@@ -34,7 +35,7 @@ from sklearn.preprocessing import LabelEncoder
 
 
 #traindata=pd.read_csv('UNSW_NB15_training_set.csv',skiprows=1,names=['id','dur','proto','service','state','spkts','dpkts','sbytes','dbytes','rate','sttl','dttl','sload','dload','sloss','dloss','sinpkt','dinpkt','sjit','djit','swin','stcpb','dtcpb','dwin','tcprtt','synack','ackdat','smean','dmean','trans_depth','response_body_len','ct_srv_src','ct_state_ttl','ct_dst_ltm','ct_src_dport_ltm','ct_dst_sport_ltm','ct_dst_src_ltm','is_ftp_login','ct_ftp_cmd','ct_flw_http_mthd','ct_src_ltm','ct_srv_dst','is_sm_ips_ports','attack_cat','label'])
-testdata=pd.read_csv('UNSW_NB15_testing_set.csv',skiprows=1,names=['id','dur','proto','service','state','spkts','dpkts','sbytes','dbytes','rate','sttl','dttl','sload','dload','sloss','dloss','sinpkt','dinpkt','sjit','djit','swin','stcpb','dtcpb','dwin','tcprtt','synack','ackdat','smean','dmean','trans_depth','response_body_len','ct_srv_src','ct_state_ttl','ct_dst_ltm','ct_src_dport_ltm','ct_dst_sport_ltm','ct_dst_src_ltm','is_ftp_login','ct_ftp_cmd','ct_flw_http_mthd','ct_src_ltm','ct_srv_dst','is_sm_ips_ports','attack_cat','label'])
+testdata=pd.read_csv('CSV Files/Training and Testing Sets/UNSW_NB15_testing-set.csv',skiprows=1,names=['id','dur','proto','service','state','spkts','dpkts','sbytes','dbytes','rate','sttl','dttl','sload','dload','sloss','dloss','sinpkt','dinpkt','sjit','djit','swin','stcpb','dtcpb','dwin','tcprtt','synack','ackdat','smean','dmean','trans_depth','response_body_len','ct_srv_src','ct_state_ttl','ct_dst_ltm','ct_src_dport_ltm','ct_dst_sport_ltm','ct_dst_src_ltm','is_ftp_login','ct_ftp_cmd','ct_flw_http_mthd','ct_src_ltm','ct_srv_dst','is_sm_ips_ports','attack_cat','label'])
 
 
 
@@ -98,12 +99,12 @@ X_test = np.reshape(testT, (testT.shape[0],testT.shape[1],1))
 lstm_output_size = 70
 
 cnn = Sequential()
-cnn.add(Convolution1D(64, 3, border_mode="same",activation="relu",input_shape=(43, 1)))
-cnn.add(Convolution1D(64, 3, border_mode="same", activation="relu"))
-cnn.add(MaxPooling1D(pool_length=(2)))
-cnn.add(Convolution1D(128, 3, border_mode="same", activation="relu"))
-cnn.add(Convolution1D(128, 3, border_mode="same", activation="relu"))
-cnn.add(MaxPooling1D(pool_length=(2)))
+cnn.add(Convolution1D(64, 3, padding="same",activation="relu",input_shape=(43, 1)))
+cnn.add(Convolution1D(64, 3, padding="same", activation="relu"))
+cnn.add(MaxPooling1D(pool_size=(2)))
+cnn.add(Convolution1D(128, 3, padding="same", activation="relu"))
+cnn.add(Convolution1D(128, 3, padding="same", activation="relu"))
+cnn.add(MaxPooling1D(pool_size=(2)))
 cnn.add(LSTM(lstm_output_size))
 cnn.add(Dropout(0.1))
 cnn.add(Dense(1, activation="sigmoid"))
