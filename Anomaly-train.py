@@ -81,5 +81,5 @@ cnn.compile(loss="binary_crossentropy", optimizer="adam",metrics=['accuracy'])
 checkpointer = callbacks.ModelCheckpoint(filepath="results/cnn3results/checkpoint-{epoch:02d}.hdf5", verbose=1, save_best_only=True, monitor='val_acc',mode='max')
 csv_logger = CSVLogger('results/cnn3results/cnntrainanalysis1.csv',separator=',', append=False)
 
-cnn.fit(X_train, y_train, epochs=1000,validation_data=(X_test, y_test),callbacks=[checkpointer,csv_logger])
+cnn.fit(X_train, y_train, epochs=20,validation_data=(X_test, y_test),callbacks=[checkpointer,csv_logger])
 cnn.save("results/cnn3results/cnn_model.hdf5")
