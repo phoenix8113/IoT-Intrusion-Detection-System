@@ -2,27 +2,28 @@ from __future__ import print_function
 import numpy as np
 np.random.seed(1337)  # for reproducibility
 
-from keras.preprocessing import sequence
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Activation, Lambda
-from keras.layers import Embedding
-from keras.layers import Convolution1D,MaxPooling1D, Flatten
-from keras.datasets import imdb
-from keras import backend as K
+from tensorflow.keras.utils.preprocessing import sequence
+from tensorflow.keras.utils.models import Sequential
+from tensorflow.keras.utils.layers import Dense, Dropout, Activation, Lambda
+from tensorflow.keras.utils.layers import Embedding
+from tensorflow.keras.utils.layers import Convolution1D,MaxPooling1D, Flatten
+from tensorflow.keras.utils.datasets import imdb
+from tensorflow.keras.utils import backend as K
 from sklearn.model_selection import train_test_split
 import pandas as pd
-from keras.utils.np_utils import to_categorical
+import np_utils
+from np_utils import to_categorical
 
 from sklearn.preprocessing import Normalizer
-from keras.models import Sequential
-from keras.layers import Convolution1D, Dense, Dropout, Flatten, MaxPooling1D
-from keras.utils import np_utils
+from tensorflow.keras.utils.models import Sequential
+from tensorflow.keras.utils.layers import Convolution1D, Dense, Dropout, Flatten, MaxPooling1D
+from tensorflow.keras.utils.utils import np_utils
 import numpy as np
 import h5py
-from keras import callbacks
-from keras.layers import LSTM, GRU, SimpleRNN
-from keras.callbacks import CSVLogger
-from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, CSVLogger
+from tensorflow.keras.utils import callbacks
+from tensorflow.keras.utils.layers import LSTM, GRU, SimpleRNN
+from tensorflow.keras.utils.callbacks import CSVLogger
+from tensorflow.keras.utils.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from sklearn.metrics import (precision_score, recall_score,f1_score, accuracy_score,mean_squared_error,mean_absolute_error)
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
