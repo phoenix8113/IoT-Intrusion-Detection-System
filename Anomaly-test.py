@@ -1,5 +1,7 @@
 from __future__ import print_function
 import numpy as np
+
+
 np.random.seed(1337)  # for reproducibility
 
 from keras.preprocessing import sequence
@@ -109,14 +111,14 @@ cnn.add(LSTM(lstm_output_size))
 cnn.add(Dropout(0.1))
 cnn.add(Dense(1, activation="sigmoid"))
 
-cnn.load_weights("results/cnn3results/checkpoint-04.hdf5")
+cnn.load_weights("results/cnn3results/checkpoint-03.hdf5")
 
 
 cnn.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 loss, accuracy = cnn.evaluate(X_test, y_test)
 print("\nLoss: %.2f, Accuracy: %.2f%%" % (loss, accuracy*100))
 
-y_pred = cnn.predict_classes(X_test)
+y_pred = (cnn.predict(X_test) > 0.5).astype("int32")
 accuracy = accuracy_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred , average="binary")
 precision = precision_score(y_test, y_pred , average="binary")

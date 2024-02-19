@@ -78,7 +78,7 @@ cnn.add(Dense(1, activation="sigmoid"))
 cnn.compile(loss="binary_crossentropy", optimizer="adam",metrics=['accuracy'])
 
 # train
-checkpointer = callbacks.ModelCheckpoint(filepath="results/cnn3results/checkpoint-{epoch:02d}.hdf5", verbose=1, save_best_only=True, monitor='val_acc',mode='max')
+checkpointer = callbacks.ModelCheckpoint(filepath="results/cnn3results/checkpoint-{epoch:02d}.hdf5", verbose=1, save_best_only=True, monitor='val_accuracy',mode='max')
 csv_logger = CSVLogger('results/cnn3results/cnntrainanalysis1.csv',separator=',', append=False)
 
 cnn.fit(X_train, y_train, epochs=20,validation_data=(X_test, y_test),callbacks=[checkpointer,csv_logger])
